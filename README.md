@@ -45,12 +45,25 @@ While tactical dispatch tools optimize vehicle routes on a daily basis (Vehicle 
 
 ## 2. Platform Architecture & Visual Showcase
 
-RouteZone is organized around a two-step enterprise workflow:
+### Step 1: Data Studio & Ingestion Workflow
 
-### Step 1: Data Studio and Ingestion
-Initializes blank configuration matrices, provides immediate auto-fill for standardized benchmark networks (e.g., Algeria national distribution), supports custom CSV uploads, and validates capacity feasibility before solver execution.
+#### 1. Initial Blank State & Ingestion Choice
+The platform initializes in a clean blank state, allowing users to enter custom operational records, auto-fill standardized benchmark datasets, or upload enterprise CSV files.
 
-![Data Studio and Ingestion](docs/img/data_studio.png)
+![01 Data Studio Blank State](docs/img/01_data_studio_blank.png)
+
+#### 2. CSV Schema Upload & Integration
+Users can import four distinct operational matrices: Regional Customer Demand, Primary Supply Gateways, Candidate Distribution Centers, and custom Freight Rate/Lead Time tariffs.
+
+![02 CSV Upload Guide](docs/img/02_csv_uploader_guide.png)
+
+#### 3. In-Place Table Editing & Capacity Auditing
+Every data record is directly editable in-place via interactive data editors. The system continuously validates capacity sanity bounds (Supply $\ge$ Demand) before enabling solver execution.
+
+![03 Editable Data Tables](docs/img/03_editable_data_tables.png)
+
+#### 4. Visual Workflow Pipeline & Methodology Guide
+A 4-step vector workflow banner guides users through Ingestion, Capacity Audit, MILP Optimization, and Executive Decision Cockpit.
 
 ```
                             WORKFLOW PIPELINE
@@ -59,14 +72,56 @@ Initializes blank configuration matrices, provides immediate auto-fill for stand
    (Auto-fill or CSV)     (Supply vs Demand)     (Google OR-Tools)    (KPIs, Map, Risk)
 ```
 
-![Visual Workflow Pipeline](docs/img/workflow_pipeline.png)
+![04 Workflow Pipeline Guide](docs/img/04_workflow_methodology_guide.png)
 
 ---
 
-### Step 2: Executive Decision Cockpit
-Renders an interactive geospatial network map using OpenStreetMap cartography, executive KPI metric cards, detailed cost breakdown charts, facility utilization analytics, sensitivity analysis models, and disruption simulations.
+### Step 2: Executive Decision Cockpit & Analytics
 
-![RouteZone Executive Decision Cockpit](docs/img/cockpit_overview.png)
+#### 5. Executive Metric Cards & Status Quo Comparison
+Immediate C-suite visibility over Total Landed Cost, Net Financial Savings vs Baseline, Number of Active Warehouses, Weighted Average Lead Time, Unit Landed Cost, and Scope 3 Carbon Emissions.
+
+![05 Cockpit Executive KPIs](docs/img/05_cockpit_executive_kpis.png)
+
+#### 6. Interactive Network Cartography, SLA Radii & Greenfield Centroid
+OpenStreetMap geospatial visualization displaying supply gateways (blue diamonds), open distribution hubs (green markers), closed facilities (gray markers), demand markets (orange circles scaled to volume), inbound drayage polylines, outbound distribution routes, dual-band SLA service radii (24h at 250 km, 48h at 500 km), and the Greenfield Weiszfeld optimal demand-weighted centroid (red target marker).
+
+![06 Interactive Network Map](docs/img/06_network_map_routing.png)
+
+#### 7. Total Landed Cost Decomposition & Working Capital Centralization
+Interactive Plotly cost decomposition breakdown (fixed facility overhead, handling fees, primary inbound freight, outbound distribution) accompanied by Eppen-Maister Square Root Law safety stock holding evaluation.
+
+![07 Landed Cost Breakdown](docs/img/07_landed_cost_breakdown.png)
+
+#### 8. Facility Throughput Capacity & Utilization Rates
+Direct analysis of open vs closed candidate warehouses, showing throughput utilization percentages, allocated monthly volume, and residual capacity headroom.
+
+![08 Facility Capacity Utilization](docs/img/08_facility_utilization.png)
+
+#### 9. Customer Market Single-Sourcing Allocation
+Tabular audit of every regional customer market, assigned serving distribution center, volume delivered, integer transit days, unit freight tariffs, and total outbound transport expenditure.
+
+![09 Customer Market Allocation](docs/img/09_customer_market_allocation.png)
+
+#### 10. Upstream Port Replenishment Inflow
+Full traceability of primary inbound freight flows moving from seaports to active distribution hubs with tonnage volumes and unit transport economics.
+
+![10 Upstream Inflow Allocations](docs/img/10_upstream_inflow.png)
+
+#### 11. Automated What-If Sensitivity Scenarios
+Side-by-side scenario modeling comparing the baseline network against High Fuel (+30% freight index), Peak Demand (+20% volume), Facility Overhead Surge (+25% fixed costs), and Combined Stress scenarios.
+
+![11 Sensitivity Scenarios](docs/img/11_whatif_sensitivity_scenarios.png)
+
+#### 12. N-1 Supply Chain Crisis Resilience & Stress-Testing
+Simulates catastrophic node blackouts (port closure or warehouse fire). Calculates the Network Resilience Score (0 to 100), financial cost surge, delivery delay spikes, emergency rerouted customer markets, and Single Point of Failure (SPOF) root-cause diagnostic breakdown.
+
+![12 N-1 Crisis Resilience Simulator](docs/img/12_n1_crisis_resilience.png)
+
+#### 13. Corporate Multi-Tab Audit Workbook Export
+One-click generation of a multi-tab corporate Excel audit workbook formatted with openpyxl in the active reporting currency (DZD, USD, EUR).
+
+![13 Excel Audit Export](docs/img/13_excel_audit_export.png)
 
 ---
 
