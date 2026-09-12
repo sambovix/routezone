@@ -26,6 +26,7 @@ from src.carbon_engine import calculate_transport_emissions
 from src.inventory_engine import calculate_safety_stock_holding
 from src.greenfield_engine import compute_weiszfeld_centroid
 from src.resilience_engine import simulate_single_node_disruption
+from src.report_generator import generate_excel_report
 from src.visualization import (
     create_network_map,
     plot_cost_breakdown_pie,
