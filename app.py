@@ -90,6 +90,77 @@ st.markdown(
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
+    .pipeline-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f8f9fa;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        gap: 8px;
+    }
+    .pipeline-step {
+        flex: 1;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 10px 12px;
+        text-align: center;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .pipeline-step.active {
+        border-color: #1f4e78;
+        background: #f0f7ff;
+        box-shadow: 0 2px 4px rgba(31, 78, 120, 0.12);
+    }
+    .pipeline-step .step-tag {
+        display: inline-block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #1f4e78;
+        background: #e1effe;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-bottom: 4px;
+    }
+    .pipeline-step .step-title {
+        font-size: 0.86rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+    .pipeline-step .step-desc {
+        font-size: 0.74rem;
+        color: #64748b;
+        margin-top: 2px;
+    }
+    .pipeline-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .guide-card {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid #1f4e78;
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+    }
+    .guide-title {
+        font-size: 0.90rem;
+        font-weight: 700;
+        color: #1f4e78;
+        margin-bottom: 4px;
+    }
+    .guide-text {
+        font-size: 0.82rem;
+        color: #334155;
+        line-height: 1.45;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -184,11 +255,79 @@ else:
 # STEP 1: DATA STUDIO
 # ==============================================================================
 if st.session_state.current_step == "data_studio":
-    st.subheader("Step 1: Network Ingestion and Configuration Studio")
-    st.write(
-        "Import custom CSV files, edit operational parameters directly in the tables below, "
-        "or click Auto-fill Demo Dataset to load the pre-configured Algeria benchmark."
+    has_data = (
+        st.session_state.regions_df is not None
+        and not st.session_state.regions_df.empty
+        and st.session_state.suppliers_df is not None
+        and not st.session_state.suppliers_df.empty
+        and st.session_state.facilities_df is not None
+        and not st.session_state.facilities_df.empty
     )
+
+    # Visual Process Pipeline
+    arrow_svg = """<div class="pipeline-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#1f4e78" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>"""
+    
+    st.markdown(
+        f"""
+        <div class="pipeline-container">
+            <div class="pipeline-step {'active' if not has_data else ''}">
+                <div class="step-tag">Etape 1</div>
+                <div class="step-title">Saisie & Import</div>
+                <div class="step-desc">Charger démo ou CSV</div>
+            </div>
+            {arrow_svg}
+            <div class="pipeline-step {'active' if has_data else ''}">
+                <div class="step-tag">Etape 2</div>
+                <div class="step-title">Validation Réseau</div>
+                <div class="step-desc">Offre vs Demande</div>
+            </div>
+            {arrow_svg}
+            <div class="pipeline-step">
+                <div class="step-tag">Etape 3</div>
+                <div class="step-title">Solveur OR-Tools</div>
+                <div class="step-desc">Optimisation MILP</div>
+            </div>
+            {arrow_svg}
+            <div class="pipeline-step">
+                <div class="step-tag">Etape 4</div>
+                <div class="step-title">Cockpit Décisionnel</div>
+                <div class="step-desc">Carte, Coûts, Résilience</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    with st.expander("Guide Méthodologique & Prise en Main Rapide", expanded=False):
+        g_c1, g_c2 = st.columns(2)
+        with g_c1:
+            st.markdown(
+                """
+                <div class="guide-card">
+                    <div class="guide-title">1. Comment débuter votre étude ?</div>
+                    <div class="guide-text">
+                        - <b>Jeu de démonstration :</b> Cliquez sur <code>Auto-fill Demo Dataset (Algeria)</code> pour charger immédiatement un réseau pré-configuré (12 wilayas de demande, 2 ports maritimes et 4 entrepôts candidats).<br>
+                        - <b>Fichiers personnalisés :</b> Ouvrez l accordéon <code>Import Datasets via CSV Files</code> pour importer vos propres données opérationnelles.<br>
+                        - <b>Édition interactive :</b> Les tableaux ci-dessous sont modifiables en direct (capacités, coordonnées GPS, coûts fixes et variables).
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+        with g_c2:
+            st.markdown(
+                """
+                <div class="guide-card">
+                    <div class="guide-title">2. Règles d admissibilité & Calculs de transport</div>
+                    <div class="guide-text">
+                        - <b>Condition d équilibre :</b> La capacité cumulée des ports et celle des entrepôts doivent couvrir au minimum 100% de la demande nationale pour éviter tout blocage mathématique.<br>
+                        - <b>Moteur géodésique :</b> Les distances routières sont automatiquement estimées par la formule de Haversine avec un facteur de circuité de 1,25 (modélisation du réseau routier réel).<br>
+                        - <b>Tarification kilométrique :</b> Le coût unitaire par défaut est de 0,15 DZD par unité et par kilomètre parcouru.
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
     action_col1, action_col2, action_col3, _ = st.columns([2.4, 2.0, 2.2, 2.4])
     with action_col1:
@@ -454,6 +593,22 @@ elif st.session_state.current_step == "optimization_dashboard":
     if limit_lead_time:
         max_sla_days = st.sidebar.slider("Maximum Delivery Lead Time (Days)", 1, 6, 2)
 
+    with st.sidebar.expander("Comprendre les Options & Parametres", expanded=False):
+        st.markdown(
+            """
+            <div style="font-size: 0.80rem; color: #334155; line-height: 1.4;">
+                <b>Glissieres de sensibilite :</b><br>
+                - <b>Demand Multiplier :</b> Simule des variations conjoncturelles de ventes (+/- 50% ou pic d activite).<br>
+                - <b>Freight Rate Index :</b> Teste l impact d une fluctuation du cout du carburant ou des tarifs transporteurs.<br>
+                - <b>Facility Overhead :</b> Evalue la hausse des loyers logistiques et des charges fixes d entreposage.<br><br>
+                <b>Contraintes d exploitation :</b><br>
+                - <b>Lock Existing Active :</b> Contrainte industrielle forcant le solveur a garder ouverts les sites deja operationnels.<br>
+                - <b>Delivery SLA Ceiling :</b> Plafond strict imposant un delai maximal en jours (interdit les routes trop longues).
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
     # Matrix synthesis
     inbound_costs, outbound_costs, lead_times, distances_km = synthesize_transport_matrices(
         regions=v_reg_df,
@@ -680,6 +835,24 @@ elif st.session_state.current_step == "optimization_dashboard":
             show_service_coverage=show_sla_coverage,
             greenfield_centroid=greenfield_centroid if show_greenfield else None,
         )
+        with st.expander("Comprendre la Carte : Rayons SLA & Barycentre Greenfield", expanded=False):
+            st.markdown(
+                """
+                <div class="guide-card">
+                    <div class="guide-title">Guide de lecture cartographique & Indicateurs cles</div>
+                    <div class="guide-text">
+                        - <b>Rayons de couverture SLA (Delais de service) :</b><br>
+                          &bull; <i>Zone verte (250 km) :</i> Perimetre de livraison express garanti sous <b>24 heures</b> a partir du centre de distribution.<br>
+                          &bull; <i>Zone ambre (500 km) :</i> Perimetre de desserte standard garanti sous <b>48 heures</b>.<br>
+                          &bull; <i>Wilayas hors cercles :</i> Zones necessitant 3 jours ou plus de transit routier.<br><br>
+                        - <b>Barycentre Greenfield (Cible rouge - Weiszfeld) :</b><br>
+                          Ce point d equilibre theoretical represente le centre de gravite parfait de la consommation nationale (coordonnees continues). Il sert d etalon strategique : plus vos entrepots candidats sont proches de cette cible, plus vos couts kilometriques de transport seront faibles.
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
         st_folium(fmap, use_container_width=True, height=560)
 
     with tab_costs:
@@ -834,6 +1007,25 @@ elif st.session_state.current_step == "optimization_dashboard":
         st.subheader("N-1 Supply Chain Crisis and Disruption Contingency Simulator")
         st.write("Stress-test the resilience of the network by disabling an active gateway port or distribution center.")
 
+        with st.expander("Comprendre la Methodologie du Stress-Test N-1", expanded=False):
+            st.markdown(
+                """
+                <div class="guide-card">
+                    <div class="guide-title">Principe du test de resistance N-1 (Disruption Simulator)</div>
+                    <div class="guide-text">
+                        - <b>Objectif :</b> Evaluer la vulnerabilite du reseau logistique face a la perte brutale d un noeud strategique (fermeture d un port, avarie majeure, sinistre ou greve dans un entrepot).<br>
+                        - <b>Re-resolution sous contrainte degradee :</b> Le solveur OR-Tools elimine le noeud defaillant et recalcule instantanement le meilleur plan d approvisionnement de secours sur l infrastructure restante.<br>
+                        - <b>Indicateurs de pilotage :</b><br>
+                          &bull; <i>Network Resilience Score (0 a 100) :</i> Note globale mesurant l aptitude du reseau a absorber le choc sans explosion des couts ni des delais.<br>
+                          &bull; <i>Financial Cost Surge :</i> Surcout financier direct genere par les detours et le fret routier d urgence.<br>
+                          &bull; <i>Lead Time Delta :</i> Allongement moyen des delais de livraison vers les clients finaux.<br>
+                          &bull; <i>Emergency Reassignments :</i> Liste precise des marches regionaux realloues en urgence vers un autre centre de distribution.
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
         res_col1, res_col2, res_col3 = st.columns([1.5, 2.5, 1.5])
         with res_col1:
             disrupt_type = st.radio("Disruption Node Category", ["Supplier Port", "Distribution Center"], index=0)
@@ -866,7 +1058,36 @@ elif st.session_state.current_step == "optimization_dashboard":
                 )
 
             if not disrupt_res.is_feasible_contingency:
-                st.error(f"CRITICAL SYSTEM FAILURE: Network is INFEASIBLE if {disrupt_res.disrupted_node_name} is disabled. The remaining infrastructure cannot satisfy total market demand.")
+                st.error(f"ECHEC CRITIQUE DE RESILIENCE : Le reseau devient INFAISABLE si le site '{disrupt_res.disrupted_node_name}' est desactive.")
+
+                tot_dem = float(v_reg_df["demand_units_month"].sum())
+                if t_type == "supplier":
+                    rem_cap = float(v_sup_df[v_sup_df["supplier_id"] != selected_node_id]["capacity_units_month"].sum())
+                    node_label = "des ports fournisseurs restants"
+                else:
+                    rem_cap = float(v_fac_df[v_fac_df["facility_id"] != selected_node_id]["max_capacity_units"].sum())
+                    node_label = "des entrepots distributeurs restants"
+
+                deficit = tot_dem - rem_cap
+                st.markdown(
+                    f"""
+                    <div class="guide-card" style="border-left-color: #d9534f; background-color: #fff8f8;">
+                        <div class="guide-title" style="color: #c9302c;">Diagnostic de Rupture & Analyse de Risque (Point de Defaillance Unique - SPOF)</div>
+                        <div class="guide-text">
+                            - <b>Demande nationale a servir :</b> {tot_dem:,.0f} unites/mois<br>
+                            - <b>Capacite disponible ({node_label}) :</b> {rem_cap:,.0f} unites/mois<br>
+                            - <b>Deficit physique net :</b> <span style="color: #c9302c; font-weight: bold;">{deficit:,.0f} unites/mois ({deficit / tot_dem * 100:.1f}% de la demande non servie)</span><br><br>
+                            <b>Signification :</b> Ce site constitue un <b>Point de Defaillance Unique (Single Point of Failure)</b>. En son absence, les capacites restantes sont physiquement incapables d absorber les volumes requis. Le solveur bloque l optimisation car la contrainte de satisfaction de 100% de la demande ne peut etre respectee sans rupture physique.<br><br>
+                            <b>Recommandations de la Direction Supply Chain :</b>
+                            <ol style="margin-bottom: 0; padding-left: 20px;">
+                                <li>Contractualiser une capacite de debit garantie plus elevee sur les sites secondaires (ex. etendre Bejaia a {tot_dem:,.0f} unites/mois).</li>
+                                <li>Ajouter une infrastructure de repli supplementaire (ex. Port d Oran ou Port de Djen Djen) pour diversifier le risque logistique.</li>
+                            </ol>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
             else:
                 st.success(f"Contingency feasible: The network successfully absorbs the outage of {disrupt_res.disrupted_node_name}.")
                 m1, m2, m3, m4 = st.columns(4)
