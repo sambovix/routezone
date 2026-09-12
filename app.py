@@ -1026,7 +1026,7 @@ elif st.session_state.current_step == "optimization_dashboard":
                 unsafe_allow_html=True,
             )
 
-        res_col1, res_col2, res_col3 = st.columns([1.5, 2.5, 1.5])
+        res_col1, res_col2, res_col3 = st.columns([1.5, 2.5, 1.5], vertical_alignment="bottom")
         with res_col1:
             disrupt_type = st.radio("Disruption Node Category", ["Supplier Port", "Distribution Center"], index=0)
 
@@ -1039,7 +1039,6 @@ elif st.session_state.current_step == "optimization_dashboard":
             selected_node_id = node_options[selected_label]
 
         with res_col3:
-            st.write("")
             run_disrupt = st.button("Simulate N-1 Disruption", type="primary", use_container_width=True)
 
         if run_disrupt:
