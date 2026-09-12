@@ -7,7 +7,7 @@ Strategic two-echelon facility location, total landed cost minimization, and sup
 [![Optimization Engine](https://img.shields.io/badge/Solver-Google%20OR--Tools-orange.svg)](https://developers.google.com/optimization)
 [![UI Framework](https://img.shields.io/badge/Frontend-Streamlit-red.svg)](https://streamlit.io/)
 [![Test Suite](https://img.shields.io/badge/Tests-25%20Passing-brightgreen.svg)](tests/)
-[![Code Standard](https://img.shields.io/badge/Standard-Google%20%26%20Apple%20Engineering-black.svg)](CONTRIBUTING.md)
+[![Code Standard](https://img.shields.io/badge/Code%20Standard-PEP%208%20%7C%20Strict%20Typing-black.svg)](CONTRIBUTING.md)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **Cloud Demo**: The interactive platform is available live at [https://routezone.streamlit.app/](https://routezone.streamlit.app/)

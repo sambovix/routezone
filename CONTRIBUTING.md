@@ -6,7 +6,7 @@ Contributions from developers, supply chain researchers, and operations research
 
 ## 1. Code of Conduct and Professional Standards
 
-RouteZone follows open source engineering standards inspired by the Google Python Style Guide and Apple software engineering practices:
+RouteZone follows rigorous open source engineering standards and Python production best practices:
 - Deterministic, maintainable, and mathematically sound implementations.
 - Professional, respectful, and technical collaboration across issue discussions and pull requests.
 - Zero boilerplate filler: communications should focus on operational metrics, algorithm complexity, and test coverage.
