@@ -1,0 +1,5 @@
+facility_id,facility_name,latitude,longitude,fixed_cost_dzd_month,variable_cost_dzd_per_unit,max_capacity_units,is_existing
+F1,DC Alger,36.754,3.059,500000,10.0,150000,1
+F2,DC Oran,35.733,-0.633,300000,12.0,100000,0
+F3,DC Constantine,36.365,6.614,250000,11.0,80000,0
+F4,DC Annaba,36.900,7.767,200000,13.0,60000,0

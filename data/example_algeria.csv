@@ -1,0 +1,7 @@
+region_id,region_name,latitude,longitude,demand_units_month
+R1,Alger,36.754,3.059,50000
+R2,Oran,35.733,-0.633,30000
+R3,Constantine,36.365,6.614,20000
+R4,Annaba,36.900,7.767,15000
+R5,Setif,36.190,5.410,18000
+R6,Batna,35.556,6.174,12000

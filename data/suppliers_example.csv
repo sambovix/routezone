@@ -1,0 +1,3 @@
+supplier_id,supplier_name,latitude,longitude,capacity_units_month
+S1,Port d Alger,36.754,3.059,150000
+S2,Port de Bejaia,36.754,5.084,120000

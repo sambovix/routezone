@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local agent configurations and internal rules (Keep local)
+.agents/
+.agent/
+_agents/
+_agent/
+AGENTS.md
+GEMINI.md
+
+# Internal planning and PRD documents (Keep local)
+SCNO_PRD.md
+ERP_Streamlit_PRD.md
+*PRD.md
+*.draft.md
+scratch/
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
