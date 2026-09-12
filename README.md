@@ -2,12 +2,15 @@
 
 Strategic two-echelon facility location, total landed cost minimization, and supply chain network resilience platform powered by Google OR-Tools and Streamlit.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-routezone.streamlit.app-FF4B4B.svg?logo=streamlit&logoColor=white)](https://routezone.streamlit.app/)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Optimization Engine](https://img.shields.io/badge/Solver-Google%20OR--Tools-orange.svg)](https://developers.google.com/optimization)
 [![UI Framework](https://img.shields.io/badge/Frontend-Streamlit-red.svg)](https://streamlit.io/)
 [![Test Suite](https://img.shields.io/badge/Tests-25%20Passing-brightgreen.svg)](tests/)
 [![Code Standard](https://img.shields.io/badge/Standard-Google%20%26%20Apple%20Engineering-black.svg)](CONTRIBUTING.md)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+> **Cloud Demo**: The interactive platform is available live at [https://routezone.streamlit.app/](https://routezone.streamlit.app/)
 
 ---
 
@@ -251,11 +254,20 @@ RouteZone/
 
 ## 6. Installation & Execution
 
-### System Requirements
+### Cloud Demo (Zero Local Setup)
+
+The production dashboard is hosted live on Streamlit Community Cloud:
+- **Live Demo**: [https://routezone.streamlit.app/](https://routezone.streamlit.app/)
+
+---
+
+### Local Setup Instructions
+
+#### System Requirements
 - Python 3.10 or higher (Tested and certified on Python 3.12 and 3.14).
 - Operating System: Linux, macOS, or Windows.
 
-### Setup Instructions
+#### Installation Steps
 
 1. **Clone the repository**:
    ```bash
@@ -337,6 +349,7 @@ tests/test_resilience_engine.py::test_invalid_node_raises PASSED         [100%]
 **Mohamed AYATI**
 - Master Student in Supply Chain Management with a strong focus on software engineering, IT architectures, Artificial Intelligence, digitalization, and operations research problem solving.
 - Personal Website: [devaultos.me](https://devaultos.me)
+- Live Cloud Platform: [routezone.streamlit.app](https://routezone.streamlit.app/)
 - GitHub Profile: [@sambovix](https://github.com/sambovix)
 - Repository: [sambovix/routezone](https://github.com/sambovix/routezone)
 

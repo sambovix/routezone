@@ -1117,3 +1117,9 @@ elif st.session_state.current_step == "optimization_dashboard":
         file_name=f"SCNO_Executive_Report_{currency_choice}.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
+
+st.markdown("<hr style='margin: 2rem 0 1rem 0; border: 0; border-top: 1px solid #e0e0e0;'>", unsafe_allow_html=True)
+st.caption(
+    "RouteZone: Supply Chain Network Optimizer | Developed by Mohamed AYATI (devaultos.me) | "
+    "Cloud Demo: https://routezone.streamlit.app/ | GitHub: https://github.com/sambovix/routezone"
+)
