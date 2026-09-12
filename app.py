@@ -271,44 +271,44 @@ if st.session_state.current_step == "data_studio":
         f"""
         <div class="pipeline-container">
             <div class="pipeline-step {'active' if not has_data else ''}">
-                <div class="step-tag">Etape 1</div>
-                <div class="step-title">Saisie & Import</div>
-                <div class="step-desc">Charger démo ou CSV</div>
+                <div class="step-tag">Step 1</div>
+                <div class="step-title">Data Ingestion</div>
+                <div class="step-desc">Auto-fill or upload CSV</div>
             </div>
             {arrow_svg}
             <div class="pipeline-step {'active' if has_data else ''}">
-                <div class="step-tag">Etape 2</div>
-                <div class="step-title">Validation Réseau</div>
-                <div class="step-desc">Offre vs Demande</div>
+                <div class="step-tag">Step 2</div>
+                <div class="step-title">Capacity Audit</div>
+                <div class="step-desc">Supply vs Market Demand</div>
             </div>
             {arrow_svg}
             <div class="pipeline-step">
-                <div class="step-tag">Etape 3</div>
-                <div class="step-title">Solveur OR-Tools</div>
-                <div class="step-desc">Optimisation MILP</div>
+                <div class="step-tag">Step 3</div>
+                <div class="step-title">MILP Optimization</div>
+                <div class="step-desc">Google OR-Tools solver</div>
             </div>
             {arrow_svg}
             <div class="pipeline-step">
-                <div class="step-tag">Etape 4</div>
-                <div class="step-title">Cockpit Décisionnel</div>
-                <div class="step-desc">Carte, Coûts, Résilience</div>
+                <div class="step-tag">Step 4</div>
+                <div class="step-title">Executive Cockpit</div>
+                <div class="step-desc">Map, Landed Cost, N-1 Risk</div>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    with st.expander("Guide Méthodologique & Prise en Main Rapide", expanded=False):
+    with st.expander("Methodology & Quick Start Guide", expanded=False):
         g_c1, g_c2 = st.columns(2)
         with g_c1:
             st.markdown(
                 """
                 <div class="guide-card">
-                    <div class="guide-title">1. Comment débuter votre étude ?</div>
+                    <div class="guide-title">1. How to Initialize Your Network</div>
                     <div class="guide-text">
-                        - <b>Jeu de démonstration :</b> Cliquez sur <code>Auto-fill Demo Dataset (Algeria)</code> pour charger immédiatement un réseau pré-configuré (12 wilayas de demande, 2 ports maritimes et 4 entrepôts candidats).<br>
-                        - <b>Fichiers personnalisés :</b> Ouvrez l accordéon <code>Import Datasets via CSV Files</code> pour importer vos propres données opérationnelles.<br>
-                        - <b>Édition interactive :</b> Les tableaux ci-dessous sont modifiables en direct (capacités, coordonnées GPS, coûts fixes et variables).
+                        - <b>Benchmark Dataset:</b> Click <code>Auto-fill Demo Dataset (Algeria)</code> to load 12 regional demand centers, 2 gateway supply ports (Algiers, Bejaia), and 4 candidate distribution hubs.<br>
+                        - <b>Custom Files:</b> Expand <code>Import Datasets via CSV Files</code> to upload enterprise operational data.<br>
+                        - <b>In-Place Editing:</b> All table records below are editable directly (capacities, GPS coordinates, fixed overhead, and handling rates).
                     </div>
                 </div>
                 """,
@@ -318,11 +318,11 @@ if st.session_state.current_step == "data_studio":
             st.markdown(
                 """
                 <div class="guide-card">
-                    <div class="guide-title">2. Règles d admissibilité & Calculs de transport</div>
+                    <div class="guide-title">2. Network Feasibility & Transport Engine</div>
                     <div class="guide-text">
-                        - <b>Condition d équilibre :</b> La capacité cumulée des ports et celle des entrepôts doivent couvrir au minimum 100% de la demande nationale pour éviter tout blocage mathématique.<br>
-                        - <b>Moteur géodésique :</b> Les distances routières sont automatiquement estimées par la formule de Haversine avec un facteur de circuité de 1,25 (modélisation du réseau routier réel).<br>
-                        - <b>Tarification kilométrique :</b> Le coût unitaire par défaut est de 0,15 DZD par unité et par kilomètre parcouru.
+                        - <b>Supply Equilibrium:</b> Combined port throughput capacity and warehouse capacities must be greater than or equal to total market demand to prevent mathematical infeasibility.<br>
+                        - <b>Geodesic Road Engine:</b> Road distances are computed using the Haversine formula scaled by a 1.25 terrain circuity factor to reflect commercial highway routing.<br>
+                        - <b>Freight Tariff:</b> Default transport rate is 0.15 DZD per unit-kilometer.
                     </div>
                 </div>
                 """,
@@ -593,17 +593,17 @@ elif st.session_state.current_step == "optimization_dashboard":
     if limit_lead_time:
         max_sla_days = st.sidebar.slider("Maximum Delivery Lead Time (Days)", 1, 6, 2)
 
-    with st.sidebar.expander("Comprendre les Options & Parametres", expanded=False):
+    with st.sidebar.expander("Understanding Operational Parameters", expanded=False):
         st.markdown(
             """
             <div style="font-size: 0.80rem; color: #334155; line-height: 1.4;">
-                <b>Glissieres de sensibilite :</b><br>
-                - <b>Demand Multiplier :</b> Simule des variations conjoncturelles de ventes (+/- 50% ou pic d activite).<br>
-                - <b>Freight Rate Index :</b> Teste l impact d une fluctuation du cout du carburant ou des tarifs transporteurs.<br>
-                - <b>Facility Overhead :</b> Evalue la hausse des loyers logistiques et des charges fixes d entreposage.<br><br>
-                <b>Contraintes d exploitation :</b><br>
-                - <b>Lock Existing Active :</b> Contrainte industrielle forcant le solveur a garder ouverts les sites deja operationnels.<br>
-                - <b>Delivery SLA Ceiling :</b> Plafond strict imposant un delai maximal en jours (interdit les routes trop longues).
+                <b>Sensitivity Analysis Sliders:</b><br>
+                - <b>Demand Multiplier:</b> Simulates macroeconomic demand shifts (+/- 50% or seasonal surges).<br>
+                - <b>Freight Rate Index:</b> Evaluates exposure to diesel fuel price inflation or carrier rate renegotiations.<br>
+                - <b>Facility Overhead:</b> Models warehouse leasing escalation and labor overhead inflation.<br><br>
+                <b>Operational Constraints:</b><br>
+                - <b>Lock Existing Active:</b> Brownfield industrial constraint forcing operating sites to remain open.<br>
+                - <b>Delivery SLA Ceiling:</b> Strict transit ceiling (days) that forbids allocations exceeding the threshold.
             </div>
             """,
             unsafe_allow_html=True,
@@ -835,18 +835,18 @@ elif st.session_state.current_step == "optimization_dashboard":
             show_service_coverage=show_sla_coverage,
             greenfield_centroid=greenfield_centroid if show_greenfield else None,
         )
-        with st.expander("Comprendre la Carte : Rayons SLA & Barycentre Greenfield", expanded=False):
+        with st.expander("Cartographic Guide: SLA Delivery Radii & Greenfield Centroid", expanded=False):
             st.markdown(
                 """
                 <div class="guide-card">
-                    <div class="guide-title">Guide de lecture cartographique & Indicateurs cles</div>
+                    <div class="guide-title">Cartographic Guide & Analytical Indicators</div>
                     <div class="guide-text">
-                        - <b>Rayons de couverture SLA (Delais de service) :</b><br>
-                          &bull; <i>Zone verte (250 km) :</i> Perimetre de livraison express garanti sous <b>24 heures</b> a partir du centre de distribution.<br>
-                          &bull; <i>Zone ambre (500 km) :</i> Perimetre de desserte standard garanti sous <b>48 heures</b>.<br>
-                          &bull; <i>Wilayas hors cercles :</i> Zones necessitant 3 jours ou plus de transit routier.<br><br>
-                        - <b>Barycentre Greenfield (Cible rouge - Weiszfeld) :</b><br>
-                          Ce point d equilibre theoretical represente le centre de gravite parfait de la consommation nationale (coordonnees continues). Il sert d etalon strategique : plus vos entrepots candidats sont proches de cette cible, plus vos couts kilometriques de transport seront faibles.
+                        - <b>Delivery SLA Radii (Service Coverage Zones):</b><br>
+                          &bull; <i>Green Zone (250 km):</i> Guaranteed <b>24-hour</b> expedited transit perimeter around active distribution centers.<br>
+                          &bull; <i>Amber Zone (500 km):</i> Standard <b>48-hour</b> regional service perimeter.<br>
+                          &bull; <i>Markets Outside Circles:</i> Remote customer regions requiring 3 or more transit days.<br><br>
+                        - <b>Greenfield Centroid (Red Target Marker - Weiszfeld):</b><br>
+                          Continuous spatial optimization balance point representing the optimal demand-weighted coordinates. It serves as an executive benchmark: candidate distribution centers located closer to this theoretical center minimize aggregate road freight ton-kilometers.
                     </div>
                 </div>
                 """,
@@ -1007,19 +1007,19 @@ elif st.session_state.current_step == "optimization_dashboard":
         st.subheader("N-1 Supply Chain Crisis and Disruption Contingency Simulator")
         st.write("Stress-test the resilience of the network by disabling an active gateway port or distribution center.")
 
-        with st.expander("Comprendre la Methodologie du Stress-Test N-1", expanded=False):
+        with st.expander("N-1 Disruption Simulation Methodology Guide", expanded=False):
             st.markdown(
                 """
                 <div class="guide-card">
-                    <div class="guide-title">Principe du test de resistance N-1 (Disruption Simulator)</div>
+                    <div class="guide-title">Principles of N-1 Contingency Stress-Testing</div>
                     <div class="guide-text">
-                        - <b>Objectif :</b> Evaluer la vulnerabilite du reseau logistique face a la perte brutale d un noeud strategique (fermeture d un port, avarie majeure, sinistre ou greve dans un entrepot).<br>
-                        - <b>Re-resolution sous contrainte degradee :</b> Le solveur OR-Tools elimine le noeud defaillant et recalcule instantanement le meilleur plan d approvisionnement de secours sur l infrastructure restante.<br>
-                        - <b>Indicateurs de pilotage :</b><br>
-                          &bull; <i>Network Resilience Score (0 a 100) :</i> Note globale mesurant l aptitude du reseau a absorber le choc sans explosion des couts ni des delais.<br>
-                          &bull; <i>Financial Cost Surge :</i> Surcout financier direct genere par les detours et le fret routier d urgence.<br>
-                          &bull; <i>Lead Time Delta :</i> Allongement moyen des delais de livraison vers les clients finaux.<br>
-                          &bull; <i>Emergency Reassignments :</i> Liste precise des marches regionaux realloues en urgence vers un autre centre de distribution.
+                        - <b>Objective:</b> Measure supply chain vulnerability by simulating the catastrophic shutdown of a critical node (gateway port closure, labor action, severe weather, or warehouse loss).<br>
+                        - <b>Dynamic Contingency Re-Optimization:</b> The OR-Tools MILP solver disables the target node and re-solves the degraded network in real time across surviving infrastructure.<br>
+                        - <b>Executive Risk Metrics:</b><br>
+                          &bull; <i>Network Resilience Score (0 to 100):</i> Quantitative score evaluating how effectively the network absorbs the outage without runaway freight inflation or severe delay spikes.<br>
+                          &bull; <i>Financial Cost Surge:</i> Landed cost inflation caused by detour miles and expedited carrier re-allocations.<br>
+                          &bull; <i>Lead Time Delta:</i> Average delivery delay increase across regional customer markets.<br>
+                          &bull; <i>Emergency Reassignments:</i> Exact list of regional customer markets transferred to alternative distribution hubs.
                     </div>
                 </div>
                 """,
@@ -1058,30 +1058,30 @@ elif st.session_state.current_step == "optimization_dashboard":
                 )
 
             if not disrupt_res.is_feasible_contingency:
-                st.error(f"ECHEC CRITIQUE DE RESILIENCE : Le reseau devient INFAISABLE si le site '{disrupt_res.disrupted_node_name}' est desactive.")
+                st.error(f"CRITICAL SYSTEM FAILURE: Network is INFEASIBLE if '{disrupt_res.disrupted_node_name}' is disabled.")
 
                 tot_dem = float(v_reg_df["demand_units_month"].sum())
                 if t_type == "supplier":
                     rem_cap = float(v_sup_df[v_sup_df["supplier_id"] != selected_node_id]["capacity_units_month"].sum())
-                    node_label = "des ports fournisseurs restants"
+                    node_label = "surviving gateway ports"
                 else:
                     rem_cap = float(v_fac_df[v_fac_df["facility_id"] != selected_node_id]["max_capacity_units"].sum())
-                    node_label = "des entrepots distributeurs restants"
+                    node_label = "surviving distribution centers"
 
                 deficit = tot_dem - rem_cap
                 st.markdown(
                     f"""
                     <div class="guide-card" style="border-left-color: #d9534f; background-color: #fff8f8;">
-                        <div class="guide-title" style="color: #c9302c;">Diagnostic de Rupture & Analyse de Risque (Point de Defaillance Unique - SPOF)</div>
+                        <div class="guide-title" style="color: #c9302c;">Disruption Diagnostic & Risk Analysis (Single Point of Failure - SPOF)</div>
                         <div class="guide-text">
-                            - <b>Demande nationale a servir :</b> {tot_dem:,.0f} unites/mois<br>
-                            - <b>Capacite disponible ({node_label}) :</b> {rem_cap:,.0f} unites/mois<br>
-                            - <b>Deficit physique net :</b> <span style="color: #c9302c; font-weight: bold;">{deficit:,.0f} unites/mois ({deficit / tot_dem * 100:.1f}% de la demande non servie)</span><br><br>
-                            <b>Signification :</b> Ce site constitue un <b>Point de Defaillance Unique (Single Point of Failure)</b>. En son absence, les capacites restantes sont physiquement incapables d absorber les volumes requis. Le solveur bloque l optimisation car la contrainte de satisfaction de 100% de la demande ne peut etre respectee sans rupture physique.<br><br>
-                            <b>Recommandations de la Direction Supply Chain :</b>
+                            - <b>Total Market Demand to Serve:</b> {tot_dem:,.0f} units/month<br>
+                            - <b>Available Residual Capacity ({node_label}):</b> {rem_cap:,.0f} units/month<br>
+                            - <b>Net Physical Deficit:</b> <span style="color: #c9302c; font-weight: bold;">{deficit:,.0f} units/month ({deficit / tot_dem * 100:.1f}% unfulfilled market demand)</span><br><br>
+                            <b>Operational Finding:</b> This facility represents a <b>Single Point of Failure (SPOF)</b>. Without it, surviving infrastructure cannot physically absorb total market demand. The solver flags infeasibility because the requirement to serve 100% of customer orders cannot be fulfilled.<br><br>
+                            <b>Executive Supply Chain Recommendations:</b>
                             <ol style="margin-bottom: 0; padding-left: 20px;">
-                                <li>Contractualiser une capacite de debit garantie plus elevee sur les sites secondaires (ex. etendre Bejaia a {tot_dem:,.0f} unites/mois).</li>
-                                <li>Ajouter une infrastructure de repli supplementaire (ex. Port d Oran ou Port de Djen Djen) pour diversifier le risque logistique.</li>
+                                <li>Contract expanded throughput capacity on alternate facilities to guarantee at least {tot_dem:,.0f} units/month.</li>
+                                <li>Qualify an additional backup supply gateway (e.g., Port of Oran or Port of Djen Djen) to diversify maritime risk exposure.</li>
                             </ol>
                         </div>
                     </div>
