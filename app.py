@@ -163,19 +163,22 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Header navigation pills
-nav_col1, nav_col2, _ = st.columns([1.5, 2, 4])
-with nav_col1:
-    if st.button("Step 1: Data Studio & Ingestion", use_container_width=True):
-        st.session_state.current_step = "data_studio"
-        st.rerun()
+# Header navigation pills (only displayed during Step 1 Data Studio)
+if st.session_state.current_step == "data_studio":
+    nav_col1, nav_col2, _ = st.columns([1.5, 2, 4])
+    with nav_col1:
+        if st.button("Step 1: Data Studio & Ingestion", use_container_width=True):
+            st.session_state.current_step = "data_studio"
+            st.rerun()
 
-with nav_col2:
-    if st.button("Step 2: Network Optimization Cockpit", use_container_width=True):
-        st.session_state.current_step = "optimization_dashboard"
-        st.rerun()
+    with nav_col2:
+        if st.button("Step 2: Network Optimization Cockpit", use_container_width=True):
+            st.session_state.current_step = "optimization_dashboard"
+            st.rerun()
 
-st.markdown("---")
+    st.markdown("---")
+else:
+    st.markdown("<hr style='margin: 0.8rem 0 1.2rem 0; border: 0; border-top: 1px solid #e0e0e0;'>", unsafe_allow_html=True)
 
 # ==============================================================================
 # STEP 1: DATA STUDIO
