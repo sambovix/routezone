@@ -52,9 +52,7 @@ While tactical dispatch tools optimize vehicle routes on a daily basis (Vehicle 
 
 End-to-end recorded walkthrough demonstrating data configuration, CSV dataset ingestion, capacity auditing, Google OR-Tools optimization, geospatial freight routing, what-if sensitivity analysis, and N-1 resilience simulation.
 
-https://github.com/sambovix/routezone/raw/main/docs/demo_tutorial.mp4
-
-<video src="docs/demo_tutorial.mp4" controls="controls" width="100%"></video>
+![RouteZone End-to-End Walkthrough Tutorial](docs/img/routezone_walkthrough.gif)
 
 ---
 
