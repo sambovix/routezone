@@ -48,14 +48,19 @@ While tactical dispatch tools optimize vehicle routes on a daily basis (Vehicle 
 
 ## 2. Platform Architecture & Visual Showcase
 
+### Platform Video Walkthrough & Tutorial
+
+End-to-end recorded walkthrough demonstrating data configuration, CSV dataset ingestion, capacity auditing, Google OR-Tools optimization, geospatial freight routing, what-if sensitivity analysis, and N-1 resilience simulation.
+
+https://github.com/sambovix/routezone/raw/main/docs/demo_tutorial.mp4
+
+<video src="docs/demo_tutorial.mp4" controls="controls" width="100%"></video>
+
+---
+
 ### Step 1: Data Studio & Ingestion Workflow
 
-#### 1. Initial Blank State & Ingestion Choice
-The platform initializes in a clean blank state, allowing users to enter custom operational records, auto-fill standardized benchmark datasets, or upload enterprise CSV files.
-
-![01 Data Studio Blank State](docs/img/01_data_studio_blank.png)
-
-#### 2. CSV Schema Upload & Integration
+#### 1. CSV Schema Upload & Integration
 Users can import four distinct operational matrices: Regional Customer Demand, Primary Supply Gateways, Candidate Distribution Centers, and custom Freight Rate/Lead Time tariffs.
 
 ![02 CSV Upload Guide](docs/img/02_csv_uploader_guide.png)

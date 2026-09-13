@@ -34,3 +34,8 @@ scratch/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local thumbnail mockups and raw screen recordings (Keep local)
+docs/img/routezone_mockup_*.jpg
+docs/img/routezone_mockup_*.png
+demo tuto.mp4
